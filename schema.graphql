@@ -1,0 +1,204 @@
+schema {
+  query: Root
+}
+
+type Calendar {
+  _id: ID!
+  name: String!
+  shortname: String!
+  categories(first: Int, last: Int, after: String, before: String): CategoryConnection
+  events(first: Int, last: Int, after: String, before: String, filterBy: EventFilterByType): EventConnection
+  background: String
+  image: String
+  images: ImageSizes
+  profileImageCompressed: ImageSizes
+  updated: String
+  changed: Boolean
+  genderZip: Boolean
+  created: String
+  private: Boolean
+  deleted: Boolean
+  tuneIn: Boolean
+  tags: [String]
+  subscriberCount: Int!
+  twitterHandle: String
+}
+
+type CalendarConnection {
+  totalCount: Int!
+  edges: [CalendarEdge]
+  pageInfo: PageInfo!
+}
+
+type CalendarEdge {
+  cursor: String!
+  node: Calendar
+}
+
+type CalendarGroup {
+  _id: ID!
+  name: String!
+  shortname: String!
+  profileImage: String
+  calendars(first: Int, last: Int, after: String, before: String): CalendarConnection
+}
+
+type CalendarGroupOrCalendar {
+  calendar: Calendar
+  calendarGroup: CalendarGroup
+}
+
+type Category {
+  _id: ID!
+  name: String
+  altName: String
+  shortname: String
+  keys: [String]
+  isDeleted: Boolean
+  dashboardDeleted: Boolean
+  calendar: Calendar
+  updated: String
+  recommendations(first: Int, last: Int, after: String, before: String): RecommendationConnection
+  geoEnabled: Boolean
+  private: Boolean
+  scraperCreated: Boolean
+  created: String
+  rolling: Boolean
+  duplicate: Boolean
+  logo: String
+}
+
+type CategoryConnection {
+  totalCount: Int!
+  edges: [CategoryEdge]
+  pageInfo: PageInfo!
+}
+
+type CategoryEdge {
+  cursor: String!
+  node: Category
+}
+
+type DatesType {
+  start: String!
+  end: String!
+  allDay: Boolean
+  tbd: Boolean
+}
+
+type Event {
+  _id: ID!
+  calendar: Calendar
+  category: Category
+  dates: DatesType
+  deleted: Boolean
+  description: String
+  location: LocationType
+  name: String!
+  shortname: String
+  images: ImageSizes
+  ticketingPrimary: String
+  ticketingSecondary: String
+  homeLogoScraped: String
+  awayLogoScraped: String
+  video: VideoType
+  result: String
+  updated: String
+  url: String
+  links: [LinkType]
+}
+
+type EventConnection {
+  totalCount: Int!
+  edges: [EventEdge]
+  pageInfo: PageInfo!
+}
+
+type EventEdge {
+  cursor: String!
+  node: Event
+}
+
+input EventFilterByType {
+  past: Boolean
+  category: ID
+}
+
+type ImageSizes {
+  small: String
+  medium: String
+  large: String
+}
+
+type LinkType {
+  url: String!
+  text: String
+  deleted: Boolean
+  linkType: String
+}
+
+type LocationType {
+  address: String
+  lonlat: LonLatType
+  tz: String
+}
+
+type LonLatType {
+  longitude: Float
+  latitude: Float
+}
+
+type PageInfo {
+  startCursor: String
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type Recommendation {
+  _id: ID!
+  shortname: String!
+  name: String
+  image: String
+  category: Category
+  calendar: Calendar
+  created: String
+}
+
+type RecommendationConnection {
+  totalCount: Int!
+  edges: [RecommendationEdge]
+  pageInfo: PageInfo!
+}
+
+type RecommendationEdge {
+  cursor: String!
+  node: Recommendation
+}
+
+# The root query
+type Root {
+  calendarGroupOrCalendar(_id: ID, shortname: String): CalendarGroupOrCalendar
+  calendar(_id: ID, shortname: String): Calendar
+  calendarGroup(_id: ID, shortname: String): CalendarGroup
+  category(_id: String): Category
+  event(_id: ID): Event
+  site(_id: ID, shortname: String): Site
+}
+
+type Site {
+  _id: ID!
+  shortname: String
+  url: String
+  frequency: Int
+  maxNum: Int
+  cacheBustExpiration: String
+  modified: String
+}
+
+type VideoType {
+  url: String
+  mimeType: String
+  thumbnail: String
+  youtubeId: String
+}
