@@ -1,8 +1,8 @@
 import React, { Component } from "react";
+import { gql, graphql } from "react-apollo";
 
 import Calendar from "../Calendar";
 import SearchInput from "../SearchInput";
-import environment from "../createEnvironment";
 
 import logo from "./logo.png";
 import "./App.css";
@@ -22,13 +22,10 @@ export default class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to Stanza-Lite</h2>
+          <img className="App-logo" src={logo} alt="logo" />
+          <SearchInput onSearch={this.searchCalendar} />
         </div>
-        <p className="App-intro">
-          Search for a StanzaCal
-        </p>
-        <SearchInput onSearch={this.searchCalendar} />
+        <Calendar query={this.state.query} />
       </div>
     );
   }

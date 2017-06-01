@@ -1,0 +1,9 @@
+
+.Event-container {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 3px;
+  flex-grow: 0;
+  flex-basis: 25%;
+  margin: 1px 1px 1px 1px;
+}
