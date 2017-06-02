@@ -11,9 +11,9 @@ class Calendar extends React.Component {
     const { calendar } = this.props.data;
     let eventBody;
 
-    if (calendar.events.length > 0) {
+    if (calendar.events.edges.length > 0) {
       eventBody = calendar.events.edges.map(edge => (
-        <CalendarEvent event={edge.noe} key={edge.node._id} />
+        <CalendarEvent event={edge.node} key={edge.node._id} />
       ));
     } else {
       eventBody = <div>Sorry, there are no events at the moment</div>;
@@ -31,7 +31,9 @@ class Calendar extends React.Component {
     const calendar = data ? data.calendar : null;
 
     // initial state
-    if (!calendar) return null;
+    if (!calendar && !data) {
+      return null;
+    }
 
     // handle errors
     if (data.error) {
@@ -47,6 +49,13 @@ class Calendar extends React.Component {
       return (
         <div>
           Loading..
+        </div>
+      );
+    } else if (!calendar && !data.loading) {
+      // no results
+      return (
+        <div>
+          No results.. :(
         </div>
       );
     }
