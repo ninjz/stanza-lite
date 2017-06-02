@@ -18,6 +18,10 @@ Runs the app in development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
+To build for production:
+
+### `npm run build`
+
 ### My Approach
 
 I explored the graphql schema using graphIql. Decided on implementing the front-end
@@ -37,3 +41,9 @@ co-locate the field access with the CalendarEvent component.
 * Make UI nicer and switch to using React based approaches to CSS styling.
 
 * Plug in React-Lite for increased client-side performance.
+
+## Demo
+
+I deployed the application on to my Github pages:
+
+Open [https://ninjz.github.io/stanza-lite/](https://ninjz.github.io/stanza-lite/) to view
