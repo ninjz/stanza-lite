@@ -1,0 +1,11 @@
+.CalendarHeader-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.CalendarHeader-container h2 {
+    color: white;
+}

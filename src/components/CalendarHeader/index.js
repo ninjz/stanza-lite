@@ -1,64 +1,22 @@
 import React from "react";
+import SZBadge from "../../common/SZBadge";
+import SZImageBadge from "../../common/SZImageBadge";
 
-const Badge = ({ count, title }) => (
+import "./style.css";
+
+const CalendarHeader = ({ name, background, image, subscriberCount }) => (
   <div
+    className="CalendarHeader-container"
     style={{
-      display: "inline-block",
-      backgroundColor: "#865EFA",
-      borderRadius: "15px",
-      margin: "0 auto",
-      padding: "3px 10px 3px 10px"
+      backgroundImage: `url(${background})`
     }}
   >
-    <span
-      style={{
-        color: "white",
-        margin: "0 auto"
-      }}
-    >
-      {count} {title}
-    </span>
-  </div>
-);
-
-const Header = ({ name, background, image, subscriberCount }) => (
-  <div
-    style={{
-      display: "flex",
-      backgroundImage: `url(${background})`,
-      flexDirection: "column",
-      justifyContent: "center",
-      borderTopLeftRadius: "8px",
-      borderTopRightRadius: "8px"
-    }}
-  >
-    <h2
-      style={{
-        color: "white"
-      }}
-    >
+    <h2>
       {name}
     </h2>
-    <div
-      style={{
-        alignSelf: "center",
-        backgroundColor: "white",
-        width: "100px",
-        borderRadius: "50%",
-        padding: "10px",
-        border: "1px solid black"
-      }}
-    >
-      <img
-        src={image}
-        style={{
-          maxHeight: "100%",
-          maxWidth: "100%"
-        }}
-      />
-    </div>
-    <Badge count={subscriberCount} title="Subscribers" />
+    <SZImageBadge imageSrc={image} />
+    <SZBadge title={`${subscriberCount} Subscribers`} />
   </div>
 );
 
-export default Header;
+export default CalendarHeader;

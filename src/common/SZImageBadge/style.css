@@ -1,0 +1,12 @@
+.SZImageBadge-container {
+    align-self: center;
+    background-color: white;
+    border-radius: 50%;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.SZImageBadge-image {
+    max-height: 100%;
+    max-width: 100%;
+}

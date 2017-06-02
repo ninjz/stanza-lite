@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { gql, graphql } from "react-apollo";
-
 import Calendar from "../Calendar";
 import SearchInput from "../SearchInput";
 
@@ -13,6 +11,7 @@ export default class App extends Component {
   };
 
   searchCalendar = query => {
+    // pass query to calendar component
     this.setState({
       query
     });

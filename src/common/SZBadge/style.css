@@ -1,0 +1,10 @@
+.SZBadge-container {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 3px 10px 3px 10px;
+}
+
+.SZBadge-container span {
+    color: white;
+    magin: 0 auto;
+}

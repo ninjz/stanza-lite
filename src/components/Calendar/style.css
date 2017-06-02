@@ -1,0 +1,14 @@
+.Calendar-container {
+    margin: 0 auto;
+}
+
+.CalendarEvents-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid black;
+    padding-top: 20px;
+    background-color: #DBD9DB;
+    margin-bottom: 100px;
+}

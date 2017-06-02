@@ -4,49 +4,62 @@ import { gql, graphql } from "react-apollo";
 import CalendarHeader from "../CalendarHeader";
 import CalendarEvent from "../CalendarEvent";
 
+import "./style.css";
+
 class Calendar extends React.Component {
+  _renderEvents() {
+    const { calendar } = this.props.data;
+    let eventBody;
+
+    if (calendar.events.length > 0) {
+      eventBody = calendar.events.edges.map(edge => (
+        <CalendarEvent event={edge.noe} key={edge.node._id} />
+      ));
+    } else {
+      eventBody = <div>Sorry, there are no events at the moment</div>;
+    }
+
+    return (
+      <div className="CalendarEvents-container">
+        {eventBody}
+      </div>
+    );
+  }
+
   render() {
-    const { data, query } = this.props;
-    const { calendar } = data;
+    const data = this.props.data;
+    const calendar = data ? data.calendar : null;
 
-    if (!calendar && query === "") return null;
+    // initial state
+    if (!calendar) return null;
 
-    if (!calendar && data.loading)
+    // handle errors
+    if (data.error) {
+      return (
+        <div>
+          An error occured. Please try again.
+        </div>
+      );
+    }
+
+    // loading state
+    if (!calendar && data.loading) {
       return (
         <div>
           Loading..
         </div>
       );
+    }
 
     return (
-      <div
-        style={{
-          margin: "0 auto"
-        }}
-      >
+      <div className="Calendar-container">
         <CalendarHeader
           name={calendar.name}
           image={calendar.image}
           subscriberCount={calendar.subscriberCount}
           background={calendar.background}
         />
-        <div
-          style={{
-            display: "-webkit-flex",
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            border: "1px solid black",
-            paddingTop: "20px",
-            backgroundColor: "#DBD9DB",
-            marginBottom: "100px"
-          }}
-        >
-          {calendar.events.edges.map(edge => (
-            <CalendarEvent event={edge.node} key={edge.node._id} />
-          ))}
-        </div>
+        {this._renderEvents()}
       </div>
     );
   }
@@ -85,6 +98,8 @@ const CalendarForLayout = gql`
 `;
 
 export default graphql(CalendarForLayout, {
+  // skip query on init
+  skip: ({ query }) => query === "",
   options: ({ query }) => ({
     variables: {
       shortname: query
